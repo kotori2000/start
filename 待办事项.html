@@ -1,0 +1,70 @@
+<h2>待办事项</h2>
+<input type="text" id="text" value="输入待办事项" />
+<input id="add" type="button" value="添加" />
+<div>
+  
+  <ul id="list">
+  </ul>
+  <input type="button" value="选择全部" id="selectAll" />
+  &nbsp&nbsp
+  <input type="button" value="删除全部" id="removeAll" />
+  &nbsp&nbsp
+   <input type="button" value="删除" id="remove" />
+</div>
+<script>
+window.onload = function () {
+  function getById (id) {
+    return document.getElementById(id);
+  }
+ 
+  var input = getById('text');
+  var add = getById('add');
+  var selectAll = getById('selectAll');
+  var removeAll = getById('removeAll');
+  var remove = getById('remove');
+  var list = getById('list');
+   
+  add.onclick = function () {
+    var inputValue = input.value;
+    var li;
+    if (inputValue) {
+      li = document.createElement('li');
+      li.innerHTML = '<input type="checkbox" />' + input.value ;
+      input.value = '';
+
+      list.appendChild(li);
+    }
+  };
+   
+  selectAll.onclick = function () {
+    var cks = list.getElementsByTagName('input');
+    var i;
+    var length = cks.length;
+    var ck;
+    for (i = 0; i < length; i++) {
+      ck = cks[i];
+      if(!ck.checked) {
+        ck.checked = true;
+      }
+    }
+  };
+   
+  remove.onclick = function () {
+    var cks = list.getElementsByTagName('input');
+    var i;
+    var ck;
+    var li;
+    for (i = cks.length - 1; i >= 0; i--) {
+      ck = cks[i];
+      if(ck.checked) {
+        li = ck.parentNode;
+        li.parentNode.removeChild(li);
+      }
+    }
+  };
+ 
+  removeAll.onclick = function () {
+    list.innerHTML = '';
+  };
+}
+</script>
